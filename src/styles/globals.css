@@ -1,33 +1,80 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
+html,
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.8;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+a {
+  text-decoration: none;
+  color: steelblue;
+}
+
+p {
+  margin: 10px 0;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+button {
+  margin-right: 10px;
+}
+
+.btn {
+  display: inline-block;
+  background: coral;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 0;
+  border-radius: 5px;
+}
+
+.btn-delete {
+  display: inline-block;
+  background: red;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 0;
+  border-radius: 5px;
+}
+
+.btn-edit {
+  display: inline-block;
+  background: gray;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 0;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  font: inherit;
+  font-size: 13px;
+  background: darkslategrey;
+  color: #fff !important;
+  border: 0;
+  border-radius: 5px;
+  padding: 5px 15px;
+  margin: 0 20px;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  opacity: 0.8;
 }
