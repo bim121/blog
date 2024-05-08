@@ -1,5 +1,5 @@
 import Head from "next/head";
-import styles from "@/styles/Layout.module.css";
+import styles from "../src/styles/Layout.module.css";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useRouter } from "next/router";
