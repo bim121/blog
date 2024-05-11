@@ -11,7 +11,7 @@ const News: React.FC<NewsProps> = ({ news }) => {
       <Layout>
         <h1>News:</h1>
         {news.length === 0 && <h3>no news</h3>}
-        {news.map((item) => (
+        {news.map((item: any) => (
           <NewsItemComponent key={item.name} news={item} />
         ))}
         <Link className={styles.back} href="/">
@@ -25,10 +25,10 @@ const News: React.FC<NewsProps> = ({ news }) => {
 export default News;
 
 export const getServerSideProps: GetServerSideProps<NewsProps> = async () => {
-  const res = await fetch(`${API_URL}/api/news`);
-  const news: News[] = await res.json();
+  const res = await fetch(`${API_URL}/api/sports?populate=*`);
+  const news = await res.json();
 
   return {
-    props: { news },
+    props: { news: news.data },
   };
 };

@@ -4,8 +4,8 @@ interface NewsItem {
     slug: string;
     date: string;
     time: string;
-    detail: string;
-    image: string;
+    detail: DataResponseDetail[];
+    image: DataResponseImage;
 }
 
 interface News {
@@ -17,13 +17,13 @@ interface News {
 }
 
 interface NewsProps {
-    news: News[];
+    news: DataResponse[];
 }
 
 interface SingleNewsPageProps {
-    news: NewsItem;
+    news: DataResponse;
 }
 
 interface HomePageProps {
-    news: News[];
+    news: DataResponse[];
 }

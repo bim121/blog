@@ -5,22 +5,24 @@ import styles from '../../styles/News.module.css';
 import Image from "next/image";
 import Link from "next/link";
 import { GetServerSideProps } from "next";
+import converToImageUrl from "@/shared/helpers";
 
 export default function SingleNews({news}: SingleNewsPageProps) {
     const router = useRouter();
-    console.log("router===>", router);
+    const data = news.attributes;
+    const imageUrl = converToImageUrl(data.image.data.attributes.url);
     return(
         <Layout>
             <div className={styles.news}>
-                <span>{news.date} {news.time}</span>
+                <span>{data.date} {data.time}</span>
             </div>
-            <h1>{news.name}</h1>
-            {news.image && (
+            <h1>{data.name}</h1>
+            {data.image.data.attributes.url && (
                 <div className={styles.image}>
-                    <Image src={news.image} width={900} height={600} alt="#"/>
+                    <Image src={imageUrl} width={900} height={600} alt="#"/>
                 </div>
             )}
-            <p>{news.detail}</p>
+            <p>{data.detail[0].children[0].text}</p>
             <Link href="/news">
                 <p className={styles.back}>Go back</p>
             </Link>
@@ -29,12 +31,12 @@ export default function SingleNews({news}: SingleNewsPageProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<SingleNewsPageProps> = async ({query: {slug}}) => {
-    const res = await fetch(`${API_URL}/api/news/${slug}`);
+    const res = await fetch(`${API_URL}/api/sports/${slug}?populate=*`);
     const singleNews = await res.json();
 
     return {
         props: {
-            news: singleNews,
+            news: singleNews.data,
         }
     }
 }
