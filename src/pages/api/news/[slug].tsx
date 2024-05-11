@@ -1,14 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-type Data = {
-  name: string;
-};
-
-const {news} = require("./data.json");
+const { news }: { news: NewsItem[] } = require("./data.json");
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>,
+  res: NextApiResponse<DataNews>,
 ) {
-    res.status(200).json({ name: "John Doe" });
+    const newsArticle = news.filter((item: NewsItem) => item.slug === req.query.slug)[0];
+
+    res.status(200).json(newsArticle)
 }

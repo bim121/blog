@@ -6,18 +6,6 @@ import Layout from '@/../components/Layout';
 import { API_URL } from '@/../config/index';
 import NewsItemComponent from "@/../components/NewsItem";
 
-interface News {
-  image?: string;
-  date: string;
-  time: string;
-  name: string;
-  slug: string;
-}
-
-interface HomePageProps {
-  news: News[];
-}
-
 const HomePage: React.FC<HomePageProps> = ({ news }) => {
   return (
     <div>

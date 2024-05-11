@@ -5,18 +5,6 @@ import { API_URL } from '@/../config/index';
 import NewsItemComponent from "@/../components/NewsItem";
 import styles from "../../styles/News.module.css";
 
-interface News {
-  image?: string;
-  date: string;
-  time: string;
-  name: string;
-  slug: string;
-}
-
-interface NewsProps {
-  news: News[];
-}
-
 const News: React.FC<NewsProps> = ({ news }) => {
   return (
     <div>
