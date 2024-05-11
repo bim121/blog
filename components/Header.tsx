@@ -14,7 +14,12 @@ export default function Header() {
                 <ul>
                     <li>
                         <Link href="/news">
-                            Sport News
+                            News
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/news/add">
+                            Add News
                         </Link>
                     </li>
                     <li>

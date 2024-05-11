@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "../src/styles/NewsItem.module.css";
 import converToImageUrl from "@/shared/helpers";
+import moment from "moment";
 
 interface NewsItemProps {
   news: {
@@ -26,7 +27,7 @@ const NewsItem: React.FC<NewsItemProps> = ({ news }) => {
       </div>
       <div className={styles.info}>
         <span>
-          {date} {time}
+          {moment(date).format('yyyy-MM-DD')} {time}
         </span>
         <h3>{name}</h3>
       </div>
