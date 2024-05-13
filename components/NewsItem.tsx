@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "../src/styles/NewsItem.module.css";
-import converToImageUrl from "@/shared/helpers";
 import moment from "moment";
+import { converToImageUrl } from "@/shared/helpers";
 
 interface NewsItemProps {
   news: {
@@ -13,7 +13,7 @@ interface NewsItemProps {
 
 const NewsItem: React.FC<NewsItemProps> = ({ news }) => {
   const { image, date, time, name, slug } = news.attributes;
-  const imageUrl = converToImageUrl(image.data.attributes.url);
+  const imageUrl = image.data? converToImageUrl(image.data.attributes.url): "";
 
   return (
     <div className={styles.news}>
@@ -32,7 +32,7 @@ const NewsItem: React.FC<NewsItemProps> = ({ news }) => {
         <h3>{name}</h3>
       </div>
       <div className={styles.link}>
-        <Link className="btn" href={`/news/${slug}`}>
+        <Link className="btn" href={`/news/${news.id}`}>
           Read More
         </Link>
       </div>

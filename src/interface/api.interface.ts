@@ -18,12 +18,3 @@ interface DataImage{
 interface ImageAttributes{
     url: string;
 }
-
-
-interface DataResponseDetail{
-    children: DetailChildren[];
-}
-
-interface DetailChildren{
-    text: string;
-}

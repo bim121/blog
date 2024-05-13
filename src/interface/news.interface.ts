@@ -4,7 +4,7 @@ interface NewsItem {
     slug: string;
     date: string;
     time: string;
-    detail: DataResponseDetail[];
+    detail: string;
     image: DataResponseImage;
 }
 
