@@ -1,21 +1,23 @@
 import Layout from "@/components/Layout";
 import Link from "next/link";
 import { useState } from "react";
-import styles from "../../styles/Form.module.css";
+import styles from "../../../styles/Form.module.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { API_URL } from "@/config/index";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { generateUniqueKey } from "@/shared/helpers";
 import moment from "moment";
+import { generateUniqueKey } from "@/shared/helpers";
+import { GetServerSideProps } from "next";
 
-export default function AddNews(){
+export default function EditNews({sportNews}: any){
+    const attributes = sportNews.attributes;
     const [values, setValues] = useState({
-        name: "",
-        detail:"",
-        time:"",
-        date:"",
+        name: attributes.name,
+        detail: attributes.detail,
+        time: attributes.time,
+        date: attributes.date,
     });
 
     const {name, detail, time, date} = values;
@@ -32,7 +34,7 @@ export default function AddNews(){
             toast.error("Please fill all Input Field");
         }
         try{
-            const response = await axios.post(`${API_URL}/api/sports`, {
+            const response = await axios.put(`${API_URL}/api/sports/${sportNews.id}`, {
                 data: {
                     name: values.name,
                     detail: values.detail,
@@ -103,8 +105,28 @@ export default function AddNews(){
                         onChange={handleInputChange}
                         />
                     </div>
-                <input className="btn" type="submit" value="Add News" />
+                <input className="btn" type="submit" value="Edit News" />
             </form>
         </Layout>
     )
 }
+
+export const getServerSideProps: GetServerSideProps<any> = async ({query: {id}}) => {
+    try {
+        const res = await fetch(`${API_URL}/api/sports/${id}`);
+        const data = await res.json();
+        return {
+            props: {
+                sportNews: data.data,
+            },
+        };
+    } catch (error) {
+        console.error(id);
+        return {
+            props: {
+                sportNews: null, 
+            },
+        };
+    }
+}
+
