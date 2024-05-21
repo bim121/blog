@@ -12,7 +12,7 @@ interface NewsItemProps {
 }
 
 const NewsItem: React.FC<NewsItemProps> = ({ news }) => {
-  const { image, date, time, name, slug } = news.attributes;
+  const { image, date, time, name } = news.attributes;
   const imageUrl = image ? converToImageUrl(image): "";
 
   return (
