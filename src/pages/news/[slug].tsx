@@ -13,7 +13,7 @@ import Modal from "@/components/Modal";
 export default function SingleNews({news}: SingleNewsPageProps) {
     const router = useRouter();
     const data = news.attributes;
-    const imageUrl = data.image.data? converToImageUrl(data.image.data.attributes.url): "";
+    const imageUrl = data.image ? converToImageUrl(data.image): "";
 
     const deleteNews = async(e: any) =>{
         if(window.confirm("Are you sure you want to delete news?")){
@@ -48,7 +48,7 @@ export default function SingleNews({news}: SingleNewsPageProps) {
 
             <h1>{data.name}</h1>
             <ToastContainer/>
-            {data.image.data && (
+            {data.image && (
                 <div className={styles.image}>
                     <Image  src={imageUrl || "/NoImage.jpg"} width={900} height={600} alt="#"/>
                 </div>

@@ -1,15 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode, MouseEvent } from "react";
 import ReactDOM from "react-dom";
-import styles from "@/styles/Modal.module.css";
+import styles from "../src/styles/Modal.module.css";
 
-export default function Modal({ show, onClose, children, title }:any) {
+interface ModalProps {
+  show: boolean;
+  onClose: () => void;
+  children: ReactNode;
+  title?: string;
+}
+
+export default function Modal({ show, onClose, children, title }: ModalProps) {
   const [isBrowser, setIsBrowser] = useState(false);
 
   useEffect(() => {
     setIsBrowser(true);
   }, []);
 
-  const handleClose = (e: any) => {
+  const handleClose = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     onClose();
   };
@@ -29,10 +36,16 @@ export default function Modal({ show, onClose, children, title }:any) {
   ) : <></>;
 
   if (isBrowser) {
-    return ReactDOM.createPortal(
-      modalContent,
-      document.getElementById("modal-root")!
-    );
+    const modalRoot = document.getElementById("modal-root");
+    if (modalRoot) {
+      return ReactDOM.createPortal(
+        modalContent,
+        modalRoot
+      );
+    } else {
+      console.error("The element with id 'modal-root' was not found in the DOM.");
+      return null;
+    }
   } else {
     return null;
   }

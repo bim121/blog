@@ -13,7 +13,7 @@ interface NewsItemProps {
 
 const NewsItem: React.FC<NewsItemProps> = ({ news }) => {
   const { image, date, time, name, slug } = news.attributes;
-  const imageUrl = image.data? converToImageUrl(image.data.attributes.url): "";
+  const imageUrl = image ? converToImageUrl(image): "";
 
   return (
     <div className={styles.news}>

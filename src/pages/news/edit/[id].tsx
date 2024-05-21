@@ -8,8 +8,11 @@ import { API_URL } from "@/config/index";
 import { useRouter } from "next/router";
 import axios from "axios";
 import moment from "moment";
-import { generateUniqueKey } from "@/shared/helpers";
+import { converToImageUrl, generateUniqueKey } from "@/shared/helpers";
 import { GetServerSideProps } from "next";
+import Image from "next/image";
+import Modal from "@/components/Modal";
+import ImageUpload from "@/components/ImageUpload";
 
 export default function EditNews({sportNews}: any){
     const attributes = sportNews.attributes;
@@ -19,6 +22,12 @@ export default function EditNews({sportNews}: any){
         time: attributes.time,
         date: attributes.date,
     });
+
+    const [imagePreview, setImagePreview] = useState(
+        attributes.image
+    );
+    
+    const [showModal, setShowModal] = useState(false);
 
     const {name, detail, time, date} = values;
 
@@ -40,7 +49,6 @@ export default function EditNews({sportNews}: any){
                     detail: values.detail,
                     time: values.time,
                     date: values.date,
-                    slug: generateUniqueKey(),
                 }
             });
         }
@@ -51,7 +59,12 @@ export default function EditNews({sportNews}: any){
        
     }
 
-    
+    const imageUploaded = async (e:any) => {
+        const res = await fetch(`${API_URL}/api/sports/${sportNews.id}?populate=*`);
+        const data = await res.json();
+        setImagePreview(data.data.attributes.image);
+        setShowModal(false);
+    };
 
     const handleInputChange = (e: any) => {
         const{name, value} = e.target;
@@ -107,13 +120,31 @@ export default function EditNews({sportNews}: any){
                     </div>
                 <input className="btn" type="submit" value="Edit News" />
             </form>
+            {imagePreview ? (
+                <Image src={converToImageUrl(imagePreview)} height={100} width={180} alt='#'/>
+            ) : (
+                <div>
+                    <p>No Image Available</p>
+                </div>
+            )}
+            <div>
+                <button onClick={() => setShowModal(true)} className="btn-edit">
+                    Update Image
+                </button>
+            </div>
+            <Modal show={showModal} onClose={() => setShowModal(false)}>
+                <ImageUpload
+                    sportNewsId={sportNews.id}
+                    imageUploaded={imageUploaded}
+                />
+            </Modal>
         </Layout>
     )
 }
 
 export const getServerSideProps: GetServerSideProps<any> = async ({query: {id}}) => {
     try {
-        const res = await fetch(`${API_URL}/api/sports/${id}`);
+        const res = await fetch(`${API_URL}/api/sports/${id}?populate=*`);
         const data = await res.json();
         return {
             props: {

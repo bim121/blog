@@ -25,8 +25,6 @@ export default function AddNews(){
     const handleSubmit = async (e:any) => {
         e.preventDefault();
         const emptyFieldCheck = Object.values(values).some((element) => element === "");
-        
-     
        
         if(emptyFieldCheck){
             toast.error("Please fill all Input Field");
@@ -41,6 +39,7 @@ export default function AddNews(){
                     slug: generateUniqueKey(),
                 }
             });
+            
         }
         catch(error){
             console.log(error);

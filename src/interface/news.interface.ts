@@ -5,7 +5,7 @@ interface NewsItem {
     date: string;
     time: string;
     detail: string;
-    image: DataResponseImage;
+    image: string;
 }
 
 interface News {
