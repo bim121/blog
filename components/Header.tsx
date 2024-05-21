@@ -1,6 +1,5 @@
 import Link from "next/link";
 import styles from "../src/styles/Header.module.css"
-import Search from "./Search";
 
 export default function Header() {
     return (
@@ -10,7 +9,6 @@ export default function Header() {
             Sport News
           </Link>
         </div>
-        <Search />
         <nav>
           <ul>
             <li>

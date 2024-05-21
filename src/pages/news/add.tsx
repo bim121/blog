@@ -2,7 +2,7 @@ import Layout from "@/components/Layout";
 import Link from "next/link";
 import { useState } from "react";
 import styles from "../../styles/Form.module.css";
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { API_URL } from "@/config/index";
 import { useRouter } from "next/router";
@@ -20,15 +20,9 @@ export default function AddNews(){
 
     const {name, detail, time, date} = values;
 
-    const router = useRouter();
-
     const handleSubmit = async (e:any) => {
         e.preventDefault();
-        const emptyFieldCheck = Object.values(values).some((element) => element === "");
-       
-        if(emptyFieldCheck){
-            toast.error("Please fill all Input Field");
-        }
+        
         try{
             const response = await axios.post(`${API_URL}/api/sports`, {
                 data: {
@@ -59,7 +53,6 @@ export default function AddNews(){
         <Layout title="Add News Sport News">
             <Link href="/news">GO Back</Link>
             <h2>Add Sport News</h2>
-            <ToastContainer/>
             <form onSubmit={handleSubmit} className={styles.form}>
                 <div className={styles.grid}>
                     <div>
